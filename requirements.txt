@@ -1,0 +1,10 @@
+langchain-ollama
+langchain-core
+langchain
+python-dotenv
+gradio
+torch
+langchain_community
+langchain-huggingface
+sentence-transformers
+faiss-cpu
