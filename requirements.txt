@@ -1,10 +1,39 @@
-langchain-ollama
-langchain-core
-langchain
-python-dotenv
-gradio
-torch
-langchain_community
-langchain-huggingface
-sentence-transformers
-faiss-cpu
+# ┌─────────────────────────────────────────────────────────────────────────┐
+# │  SkyAssist Flight Booking Assistant — Python dependencies               │
+# │  Install: uv pip install -r requirements.txt                            │
+# └─────────────────────────────────────────────────────────────────────────┘
+
+# ── Core LangChain stack ──────────────────────────────────────────────────────
+langchain>=0.2.0
+langchain-core>=0.2.0
+langchain-community>=0.2.0
+langchain-ollama>=0.1.0
+langchain-huggingface>=0.0.3
+
+# ── Embeddings & vector store ─────────────────────────────────────────────────
+sentence-transformers>=2.7.0
+# faiss-cpu is for CPU-only machines.
+# If you have CUDA, replace with: faiss-gpu
+faiss-cpu>=1.8.0
+
+# ── UI ────────────────────────────────────────────────────────────────────────
+# Minimum 4.x required for gr.State, gr.Group, gr.themes.Soft,
+# gr.Radio interactive=True, and multi-output .click() wiring.
+gradio>=4.36.0
+
+# ── ML runtime ────────────────────────────────────────────────────────────────
+# CPU build is fine. For GPU support install the CUDA wheel separately.
+torch>=2.2.0
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+python-dotenv>=1.0.0
+tqdm>=4.66.0
+
+# ── External tools (not pip-installable — set up manually) ───────────────────
+# Ollama runtime:  https://ollama.com/download
+#   then run:      ollama pull llama3.2
+#
+# Gmail App Password (needed for booking confirmation email):
+#   https://myaccount.google.com/apppasswords
+#   Set env var:   GMAIL_APP_PASSWORD=xxxx xxxx xxxx xxxx
+#   Or paste it into Flight_ticket_Booking.py -> GMAIL_APP_PASSWORD variable

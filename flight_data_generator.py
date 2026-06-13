@@ -1,39 +1,50 @@
+"""
+flight_data_generator.py
+Generates synthetic Indian domestic flight data and saves to flights.json.
+
+Changes from original:
+- Added random seed for reproducibility
+- Configurable NUM_FLIGHTS (default 10_000 instead of 1_000_000)
+- Price stored as integer (not ₹-prefixed string) for easier filtering
+- Added flight_id for traceability
+"""
+
 import json
 import random
 from datetime import datetime, timedelta
 
-airlines = ["IndiGo", "Air India", "SpiceJet", "Vistara", "GoAir"]
-cities = ["Kolkata", "Delhi", "Mumbai", "Chennai", "Bangalore", "Hyderabad", "Pune", "Jaipur", "Ahmedabad", "Lucknow"]
+# ── Config ────────────────────────────────────────────────────────────────────
+NUM_FLIGHTS = 1_000_000          # Change to 1_000_000 if you really need it
+RANDOM_SEED = 42
+OUTPUT_FILE = "flights.json"
+BASE_DATE   = datetime(2026, 6, 20)
+# ─────────────────────────────────────────────────────────────────────────────
 
-base_date = datetime(2026, 6, 20)
+random.seed(RANDOM_SEED)
+
+AIRLINES = ["IndiGo", "Air India", "SpiceJet", "Vistara", "GoAir"]
+CITIES   = [
+    "Kolkata", "Delhi", "Mumbai", "Chennai", "Bangalore",
+    "Hyderabad", "Pune", "Jaipur", "Ahmedabad", "Lucknow",
+]
 
 flights = []
-for i in range(10000):  # ⚠️ reduced for testing; 10M is huge
-    airline = random.choice(airlines)
-    price_value = random.randint(4500, 7000)
-    price = f"₹{price_value}"  # ✅ store as string with ₹
-    departure_time = base_date + timedelta(hours=i % 24, days=i // 24)
-
-    # Ensure origin and destination are different
-    origin, destination = random.sample(cities, 2)
+for i in range(NUM_FLIGHTS):
+    airline = random.choice(AIRLINES)
+    price   = random.randint(4_500, 7_000)          # stored as int, not string
+    depart  = BASE_DATE + timedelta(hours=i % 24, days=i // 24)
+    origin, destination = random.sample(CITIES, 2)
 
     flights.append({
-        "airline": airline,
-        "origin": origin,
+        "flight_id":   i + 1,
+        "airline":     airline,
+        "origin":      origin,
         "destination": destination,
-        "price": price,  # ✅ now includes ₹
-        "departure": departure_time.strftime("%Y-%m-%d %H:%M")
+        "price":       price,                        # integer ₹ value
+        "departure":   depart.strftime("%Y-%m-%d %H:%M"),
     })
 
-with open("flights.json", "w") as f:
-    json.dump(flights, f, indent=2)
+with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+    json.dump(flights, f, indent=2, ensure_ascii=False)
 
-with open("flights.json", "r") as f:
-    data = json.load(f)
-
-print(f"Number of entries: {len(data)}")
-# Since price is now a string, we can’t compute min/max directly
-# but we can strip the ₹ and convert back to int if needed:
-prices = [int(f["price"].replace("₹", "")) for f in data]
-print(f"Min price: ₹{min(prices)}")
-print(f"Max price: ₹{max(prices)}")
+print(f"✅ {OUTPUT_FILE} generated with {NUM_FLIGHTS:,} records.")
