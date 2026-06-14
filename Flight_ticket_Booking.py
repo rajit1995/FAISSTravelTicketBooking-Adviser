@@ -1,13 +1,3 @@
-"""
-Flight_ticket_Booking.py
-RAG-powered flight booking assistant — full interactive workflow:
-  1. Search  → retrieve flights via FAISS
-  2. LLM     → formats options, sorts by departure ASC, returns structured JSON
-  3. UI      → customer picks a flight via Radio buttons
-  4. LLM     → generates booking summary + payment invoice
-  5. Payment → simulated (random txn-id, UPI/card mock)
-  6. Email   → sends HTML confirmation to rajit1995@gmail.com via SMTP/Gmail
-"""
 
 import json
 import os
