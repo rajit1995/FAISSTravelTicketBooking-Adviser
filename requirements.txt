@@ -1,18 +1,10 @@
-# ┌─────────────────────────────────────────────────────────────────────────┐
-# │  SkyAssist Flight Booking Assistant — Python dependencies               │
-# │  Install: uv pip install -r requirements.txt                            │
-# └─────────────────────────────────────────────────────────────────────────┘
-
-# ── Core LangChain stack ──────────────────────────────────────────────────────
 langchain>=0.2.0
 langchain-core>=0.2.0
 langchain-community>=0.2.0
 langchain-ollama>=0.1.0
 langchain-huggingface>=0.0.3
-
-# ── Embeddings & vector store ─────────────────────────────────────────────────
 sentence-transformers>=2.7.0
-# faiss-cpu is for CPU-only machines.
+#faiss-cpu is for CPU-only machines.
 # If you have CUDA, replace with: faiss-gpu
 faiss-cpu>=1.8.0
 
