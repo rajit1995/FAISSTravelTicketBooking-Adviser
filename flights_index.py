@@ -1,14 +1,3 @@
-"""
-flights_index.py
-Builds a FAISS vector index from flights.json.
-
-Changes from original:
-- tqdm progress bar so the user can see real-time progress
-- Price formatted back to ₹-string in the document text for LLM readability
-  (the raw int is kept in metadata for potential filtering)
-- Graceful error if flights.json is missing
-- Configurable BATCH_SIZE and INDEX_PATH
-"""
 
 import json
 import os
