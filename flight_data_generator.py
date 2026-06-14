@@ -1,13 +1,3 @@
-"""
-flight_data_generator.py
-Generates synthetic Indian domestic flight data and saves to flights.json.
-
-Changes from original:
-- Added random seed for reproducibility
-- Configurable NUM_FLIGHTS (default 10_000 instead of 1_000_000)
-- Price stored as integer (not ₹-prefixed string) for easier filtering
-- Added flight_id for traceability
-"""
 
 import json
 import random
